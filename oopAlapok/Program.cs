@@ -45,6 +45,12 @@ namespace oopAlapok
         }
 
 
+        public override string ToString()
+        {
+            return $"A tanuló neve {_nev} Életkora {_kor}";
+        }
+
+
     }
     internal class Program
     {
@@ -52,7 +58,10 @@ namespace oopAlapok
         {
             Szemely tanulo1 = new Szemely("Nagy Pista");
             tanulo1.Kor = 44;
-            Console.WriteLine(tanulo1.Nev + tanulo1.Kor);
+
+
+            Console.WriteLine(tanulo1);
+            //Console.WriteLine(tanulo1.Nev + tanulo1.Kor);
         }
     }
 }
