@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -75,55 +76,75 @@ namespace oopAlapok
         }
     }
 
-    public class Hallgato : Szemely
-    {
-        private string _neptunekod;
 
-        public string Neptunkod
+    class Dolgozo : Szemely
+    {
+        private int _ber;
+
+
+        public Dolgozo(string nev, int kor, int ber) : base(nev, kor)
         {
-            set
+            _ber = ber;
+        }
+
+        public override string ToString()
+        {
+            return $"{Nev} {Kor} {_ber}";
+        }
+
+
+
+
+        public class Hallgato : Szemely
+        {
+            private string _neptunekod;
+
+            public string Neptunkod
             {
-                if (value.Length == 6)
-                    _neptunekod = value;
+                set
+                {
+                    if (value.Length == 6)
+                        _neptunekod = value;
+                }
+            }
+
+            public Hallgato(string nev, int kor) : base(nev, kor)
+            {
+
             }
         }
 
-        public Hallgato(string nev, int kor) : base(nev, kor)
+        internal class Program
         {
-            
-        }
-    }
-
-    internal class Program
-    {
-        static void Main(string[] args)
-        {
-            Szemely tanulo1 = new Szemely("Nagy Pista")
+            static void Main(string[] args)
             {
-                Kor = 44
-            };
+                Szemely tanulo1 = new Szemely("Nagy Pista")
+                {
+                    Kor = 44
+                };
 
-            Console.WriteLine(tanulo1);
+                Console.WriteLine(tanulo1);
 
-            List<Hallgato> hallgatoLista = new List<Hallgato>();
+                List<Hallgato> hallgatoLista = new List<Hallgato>();
 
-            for (int i = 0; i < 2; i++)
-            {
-                Console.WriteLine($"Add meg a hallgato {i + 1} nevet");
-                string nev = Console.ReadLine();
-                Console.WriteLine($"Add meg a hallgato {i + 1} kort");
-                int kor = int.Parse(Console.ReadLine());
-                Hallgato hallgato = new Hallgato(nev, kor);
-                Console.WriteLine($"Add meg a hallgato {i + 1} neptunkodjat");
-                hallgato.Neptunkod = Console.ReadLine();
-                hallgatoLista.Add(hallgato);
+                for (int i = 0; i < 2; i++)
+                {
+                    Console.WriteLine($"Add meg a hallgato {i + 1} nevet");
+                    string nev = Console.ReadLine();
+                    Console.WriteLine($"Add meg a hallgato {i + 1} kort");
+                    int kor = int.Parse(Console.ReadLine());
+                    Hallgato hallgato = new Hallgato(nev, kor);
+                    Console.WriteLine($"Add meg a hallgato {i + 1} neptunkodjat");
+                    hallgato.Neptunkod = Console.ReadLine();
+                    hallgatoLista.Add(hallgato);
+                }
+
+                foreach (var item in hallgatoLista)
+                {
+                    Console.WriteLine(item.Nev);
+                }
+
             }
-
-            foreach (var item in hallgatoLista)
-            {
-                Console.WriteLine(item.Nev);
-            }
-
         }
     }
 }
